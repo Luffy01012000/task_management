@@ -29,5 +29,9 @@
     "lint:backend": "pnpm --filter backend lint",
     "lint:frontend": "pnpm --filter frontend lint",
     "prepare": "husky"
-  }
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
 }
