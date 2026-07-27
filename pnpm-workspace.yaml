@@ -1,6 +1,6 @@
 packages:
   - "backend"
-  - "frontendv1"
+  - "frontend"
 allowBuilds:
   bcrypt: false
   esbuild: false
