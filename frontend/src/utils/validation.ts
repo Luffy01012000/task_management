@@ -34,7 +34,7 @@ export const taskSchema = z.object({
     .string()
     .min(1, "Due date is required")
     .refine(
-      (v) => new Date(v) >= startOfToday(),
+      (v: string) => new Date(v) >= startOfToday(),
       "Due date cannot be in the past",
     ),
 });
