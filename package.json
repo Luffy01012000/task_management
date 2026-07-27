@@ -1,0 +1,26 @@
+{
+  "name": "task-manager",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Root workspace: MERN + TypeScript Task Manager (backend + frontend)",
+  "workspaces": ["backend", "frontend"],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "build:backend": "npm run build --workspace backend",
+    "build:frontend": "npm run build --workspace frontend",
+    "lint:backend": "npm run lint --workspace backend",
+    "lint:frontend": "npm run lint --workspace frontend",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0"
+  },
+  "lint-staged": {
+    "backend/**/*.ts": ["prettier --write", "eslint --fix"],
+    "frontend/**/*.{ts,tsx}": ["prettier --write", "eslint --fix"]
+  }
+}

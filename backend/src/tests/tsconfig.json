@@ -1,0 +1,55 @@
+{
+  "extends": "@tsconfig/node24/tsconfig.json",
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "allowJs": true,
+
+    // Environment Settings
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    "paths": {
+      "@shared/*": ["./src/shared/*"],
+      "#prismagenerated/*": ["./src/shared/generated/*"],
+      "#authService/*": ["./src/services/auth/*"]
+    },
+    "types": ["node", "vitest/globals"],
+    // Recommended Options
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    // "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force"
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "src/shared/generated",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}
