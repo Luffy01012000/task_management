@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "^24.x.x",
+    "npm": "^11.13.0",
+    "bun": "^1.3.0",
+    "pnpm": "^11.11.0"
+  },
   "scripts": {
     "test": "cross-env NODE_ENV=test vitest run",
     "test:unit": "cross-env NODE_ENV=test vitest run unit",
