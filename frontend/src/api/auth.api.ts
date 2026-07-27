@@ -1,5 +1,5 @@
 import { axiosClient } from "./axiosClient";
-import { ApiEnvelope, AuthResponse } from "../types";
+import type { ApiEnvelope, AuthResponse } from "../types";
 
 export interface RegisterPayload {
   name: string;

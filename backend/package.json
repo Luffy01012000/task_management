@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -17,8 +17,8 @@
     "lint:fix": "tsc --noEmit && eslint \"src/**/*.ts\" --fix",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
-    "prepare": "husky",
-    "db:seed": "cross-env NODE_ENV=development tsx src/infrastructure/db/seeds/index.ts"
+    "db:seed-dev": "cross-env NODE_ENV=development tsx src/infrastructure/db/seeds/index.ts",
+    "db:seed-prod": "cross-env NODE_ENV=development node dist/infrastructure/db/seeds/index.js"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +34,7 @@
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/express-rate-limit": "^6.0.2",
     "@types/hpp": "^0.2.7",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
@@ -49,7 +50,7 @@
     "supertest": "^7.2.2",
     "tsc-alias": "^1.8.17",
     "tsx": "^4.22.4",
-    "typescript": "^6.0.3",
+    "typescript": "^6",
     "typescript-eslint": "^8.61.1",
     "vitest": "^4.0.15"
   },
@@ -64,11 +65,11 @@
     "dotenv": "^17.4.2",
     "dotenv-flow": "^4.1.0",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.5.2",
+    "express-rate-limit": "^8.6.1",
     "helmet": "^8.2.0",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.8.0",
+    "mongoose": "^8.7.1",
     "morgan": "^1.11.0",
     "ms": "^2.1.3",
     "winston": "^3.19.0",

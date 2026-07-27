@@ -1,5 +1,5 @@
 import { axiosClient } from "./axiosClient";
-import { ApiEnvelope, PaginatedTasks, Task, TaskQuery } from "../types";
+import type { ApiEnvelope, PaginatedTasks, Task, TaskQuery } from "../types";
 
 export interface TaskPayload {
   title: string;

@@ -3,6 +3,7 @@ import type { NextFunction, Request, Response } from 'express'
 // import config from '../config/index.js'
 import ResponseFormatter from '../utils/responseFormatter.js'
 import { jwtService } from '@shared/lib/jwt/index.js'
+import logger from '@shared/lib/logger.js'
 
 export type AuthenticatedUser = {
   userId: number
@@ -25,12 +26,15 @@ export default function authenticate(
       .json(ResponseFormatter.error('Authentication required', 401))
   }
 
-  // try {
-  res.locals.user = jwtService.verifyAccessToken(token)
-  next()
-  // } catch {
-  //   return res
-  //     .status(401)
-  //     .json(ResponseFormatter.error('Invalid or expired token', 401))
-  // }
+  try {
+    res.locals.user = jwtService.verifyAccessToken(token)
+    next()
+  } catch (err) {
+    logger.error('error token==>>', {
+      meta: { error: err }
+    })
+    return res
+      .status(401)
+      .json(ResponseFormatter.error('Invalid or expired token', 401))
+  }
 }

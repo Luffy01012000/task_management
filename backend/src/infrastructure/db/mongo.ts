@@ -1,4 +1,5 @@
 import config from '@shared/config/index.js'
+import logger from '@shared/lib/logger.js'
 import mongoose from 'mongoose'
 
 const MONGODB_URI = config.mongo_uri || 'mongodb://localhost:27017/task-manager'
@@ -6,9 +7,9 @@ const MONGODB_URI = config.mongo_uri || 'mongodb://localhost:27017/task-manager'
 export async function connectToDatabase() {
   try {
     await mongoose.connect(MONGODB_URI)
-    console.log('Connected to MongoDB successfully')
+    logger.info('Connected to MongoDB successfully')
   } catch (error) {
-    console.error('Failed to connect to MongoDB:', error)
+    logger.error('Failed to connect to MongoDB:', error)
     process.exit(1)
   }
 }
@@ -16,9 +17,9 @@ export async function connectToDatabase() {
 export async function disConnectDatabase() {
   try {
     await mongoose.disconnect()
-    console.log('Disconnected to MongoDB successfully')
+    logger.info('Disconnected from MongoDB successfully')
   } catch (error) {
-    console.error('Failed to disConnect to MongoDB:', error)
+    logger.error('Failed to disConnect to MongoDB:', error)
     process.exit(1)
   }
 }

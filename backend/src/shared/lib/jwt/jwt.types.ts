@@ -1,11 +1,11 @@
 // shared/lib/jwt/jwt.types.ts
 
 export interface AccessTokenPayload {
-  userId: ObjectId
+  userId: any
   email: string
   role: string
 }
 
 export interface RefreshTokenPayload {
-  userId: ObjectId
+  userId: any
 }

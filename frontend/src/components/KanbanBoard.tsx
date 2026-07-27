@@ -1,15 +1,15 @@
 import { useState } from "react";
 import {
   DndContext,
-  DragEndEvent,
+  type DragEndEvent,
   DragOverlay,
-  DragStartEvent,
+  type DragStartEvent,
   PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
-import { Task, TaskStatus } from "../types";
+import type { Task, TaskStatus } from "../types";
 
 const COLUMNS: { key: TaskStatus; label: string }[] = [
   { key: "Pending", label: "Pending" },

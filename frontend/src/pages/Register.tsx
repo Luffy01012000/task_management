@@ -1,8 +1,8 @@
-import { CSSProperties, FormEvent, useState } from "react";
+import { type CSSProperties, type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { registerRequest } from "../api/auth.api";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import ThemeToggle from "../components/ThemeToggle";
 import { flattenZodErrors, registerSchema } from "../utils/validation";
 import { extractErrorMessage } from "../hooks/useTasks";

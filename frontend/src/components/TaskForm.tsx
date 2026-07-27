@@ -1,5 +1,5 @@
-import { FormEvent, useState } from "react";
-import { Task } from "../types";
+import { type FormEvent, useState } from "react";
+import type { Task } from "../types";
 import { flattenZodErrors, taskSchema } from "../utils/validation";
 
 interface TaskFormProps {

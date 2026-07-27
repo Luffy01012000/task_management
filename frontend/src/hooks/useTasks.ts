@@ -5,10 +5,10 @@ import {
   createTaskRequest,
   deleteTaskRequest,
   fetchTasks,
-  TaskPayload,
+  type TaskPayload,
   updateTaskRequest,
 } from "../api/task.api";
-import { TaskQuery } from "../types";
+import type { TaskQuery } from "../types";
 
 const TASKS_KEY = "tasks";
 

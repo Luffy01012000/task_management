@@ -23,6 +23,8 @@ const config = {
 
   port: Number(process.env.PORT ?? 5000),
 
+  runSeedersOnStart: process.env.RUN_SEEDERS_ON_START === 'true',
+
   mongo_uri: required('MONGO_URI'),
 
   //   rabbitmq: {

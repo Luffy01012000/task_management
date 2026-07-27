@@ -1,0 +1,8 @@
+packages:
+  - "backend"
+  - "frontendv1"
+allowBuilds:
+  bcrypt: false
+  esbuild: false
+minimumReleaseAgeExclude:
+  - express-rate-limit@8.6.1

@@ -15,7 +15,7 @@ import {
   updateTaskSchema
 } from '../validation/taskSchema.js'
 
-const router = Router()
+const router: Router = Router()
 const { controller } = dependencies
 const taskController = controller.taskController
 

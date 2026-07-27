@@ -7,8 +7,8 @@ import { IUserRepository } from '../interfaces/userRepository.js'
 import { User } from '@infra/db/models/users.model.js'
 import { RegisterDto } from '../dto/register.dto.js'
 import { UnauthorizedError } from '@shared/errors/UnauthorizedError.js'
-import { NotFoundError } from '@shared/errors/NotFoundError.js'
 import { JwtService } from '@shared/lib/jwt/jwt.service.js'
+import { SafeUser } from '../interfaces/authService.js'
 
 /**
  * AuthService handles user authentication and authorization related operations such as onboarding super admin, user registration, login, and fetching user profile.
@@ -34,17 +34,16 @@ export class AuthService {
   generateToken(user: User) {
     const payload = {
       userId: user._id,
-      email: user.email
+      email: user.email,
+      role: user.role
     }
 
-    return jwt.sign(payload, config.jwt.secret, {
-      expiresIn: config.jwt.accessExpiresIn
-    })
+    return this.jwtService.signAccessToken(payload)
   }
 
-  formatUserForResponse(user: User) {
-    const { password: password, ...safeUser } = user
-    return safeUser
+  formatUserForResponse(user: User): SafeUser {
+    const { password: _password, ...safeUser } = user.toObject()
+    return safeUser as SafeUser
   }
 
   /**
@@ -83,7 +82,7 @@ export class AuthService {
       })
 
       return {
-        user: user.name
+        username: user.name
       }
     } catch (error) {
       logger.error('Error in Register service', error)
@@ -100,29 +99,30 @@ export class AuthService {
   async login(
     email: string,
     password: string
-  ): Promise<{ user: Omit<User, 'password'>; token: string }> {
+  ): Promise<{ user: SafeUser; token: string }> {
     const user = await this.userRepository.findByEmail(email)
-
+    logger.info('email:', {
+      meta: { email, user }
+    })
     if (!user) {
       throw new UnauthorizedError('Invalid credentials')
     }
 
     const isPasswordValid = await this.comparePassword(password, user.password)
+    logger.info('isPasswordValid:', {
+      meta: { isPasswordValid, password }
+    })
     if (!isPasswordValid) {
       throw new AppError('Invalid credentials', 401)
     }
-    const token = this.jwtService.signAccessToken({
-      userId: user._id,
-      email: user.email,
-      role: user.role
-    })
+    const token = this.generateToken(user)
 
     logger.info('User logged in successfully', {
       meta: { username: user.name, email: user.email }
     })
 
     return {
-      user: this.formatUserForResponse(user) as any,
+      user: this.formatUserForResponse(user),
       token
     }
   }

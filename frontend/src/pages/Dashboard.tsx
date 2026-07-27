@@ -14,7 +14,7 @@ import {
   useTasksQuery,
   useUpdateTask,
 } from "../hooks/useTasks";
-import { Task, TaskPriority, TaskStatus } from "../types";
+import type { Task, TaskPriority, TaskStatus } from "../types";
 
 type View = "list" | "kanban";
 

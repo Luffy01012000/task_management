@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useAuth();

@@ -26,8 +26,16 @@ export default class MongooseUserRepository extends BaseRepository<
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return await UserModel.findOne({ email, deletedAt: null })
+    logger.info('user repo1=>>', {
+      meta: { email, typeM: typeof email }
+    })
+    const user = await UserModel.findOne({ email }).select('+password').exec()
+    const user1 = await UserModel.find({ email: 'demo@taskmanager.com' })
       .select('+password')
       .exec()
+    logger.info('user repo2=>>', {
+      meta: { user, user1 }
+    })
+    return user
   }
 }

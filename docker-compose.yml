@@ -28,7 +28,11 @@ services:
       NODE_ENV: production
       PORT: 5000
       MONGO_URI: mongodb://mongo:27017/task_manager
-      JWT_SECRET: ${JWT_SECRET:-change_this_to_a_long_random_secret_string}
+      JWT_SECRET: 'replace-with-a-long-random-secret'
+      JWT_ACCESS_SECRET: 'dfsad1'
+      JWT_REFRESH_SECRET: 'dfsad2'
+      JWT_ACCESS_EXPIRES_IN: '15m'
+      JWT_REFRESH_EXPIRES_IN: '7d'
       JWT_EXPIRES_IN: 7d
       CLIENT_URL: http://localhost:5173
       RUN_SEEDERS_ON_START: 'true'

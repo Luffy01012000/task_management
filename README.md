@@ -11,11 +11,11 @@ architecture on the backend and a modern React 19 frontend.
 - JWT authentication, `bcryptjs` password hashing
 - `zod` for request validation (with strong password rules)
 - Feature-based layered architecture: `routes → controller → service → repository → model`
-<!--- Seeders that run automatically on server start (`RUN_SEEDERS_ON_START=true`)--> Pending
+- Seeders that run automatically on server start (`RUN_SEEDERS_ON_START=true`) 
 - ESLint, Prettier
 
 **Frontend**
-- React 19 + TypeScript + Vite 6
+- React 19 + TypeScript + Vite 8
 - Tailwind CSS v4 + shadcn/ui-style components (Radix primitives)
 - TanStack Query v5 for all server-state/data-fetching
 - `@dnd-kit` Kanban board with drag-and-drop status changes

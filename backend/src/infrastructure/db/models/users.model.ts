@@ -7,7 +7,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
       trim: true
     },
     password: { type: String, required: true, select: false },
@@ -16,5 +15,6 @@ const userSchema = new Schema(
   { timestamps: true }
 )
 
+export type UserData = InferSchemaType<typeof userSchema>
 export type User = HydratedDocument<InferSchemaType<typeof userSchema>>
 export const UserModel = model('User', userSchema)

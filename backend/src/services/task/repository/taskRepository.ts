@@ -13,7 +13,7 @@ class TaskRepository implements ITaskRepository {
   async findPaginated(
     userId: string,
     query: TaskQueryInput
-  ): Promise<PaginatedResult<ITask>> {
+  ): Promise<PaginatedResult<ITask[]>> {
     const filter: FilterQuery<ITask> = { userId }
 
     if (query.search) {
@@ -64,7 +64,7 @@ class TaskRepository implements ITaskRepository {
         TaskModel.countDocuments(filter)
       ])
       return {
-        items: items as ITask[],
+        items,
         total,
         page: query.page,
         limit: query.limit,

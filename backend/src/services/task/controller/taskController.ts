@@ -19,11 +19,7 @@ export class TaskController {
       res
         .status(200)
         .json(
-          ResponseFormatter.success(
-            { data: result },
-            'Task fetched successfully',
-            201
-          )
+          ResponseFormatter.success(result, 'Task fetched successfully', 201)
         )
     } catch (error) {
       next(error)
@@ -33,18 +29,15 @@ export class TaskController {
   async getTask(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = res.locals.user.userId
-      const task = await this.taskService.getOne(userId, req.params.id)
+      const task = await this.taskService.getOne(
+        userId,
+        req.params.id! as string
+      )
       res.status(200).json({ success: true, data: task })
 
       res
         .status(200)
-        .json(
-          ResponseFormatter.success(
-            { data: task },
-            'Fetch Task successfully',
-            200
-          )
-        )
+        .json(ResponseFormatter.success(task, 'Fetch Task successfully', 200))
     } catch (error) {
       next(error)
     }
@@ -58,11 +51,7 @@ export class TaskController {
       res
         .status(201)
         .json(
-          ResponseFormatter.success(
-            { data: result },
-            'Task created successfully',
-            200
-          )
+          ResponseFormatter.success(result, 'Task created successfully', 200)
         )
     } catch (error) {
       next(error)
@@ -74,16 +63,10 @@ export class TaskController {
       const userId = res.locals.user.userId
       const task = await this.taskService.update(
         userId,
-        req.params.id,
+        req.params.id! as string,
         req.body
       )
-      res
-        .status(200)
-        .json({ success: true, message: 'Task updated', data: task })
-      res.clearCookie('authToken')
-      res
-        .status(200)
-        .json(ResponseFormatter.success({ data: task }, 'Task updated', 200))
+      res.status(200).json(ResponseFormatter.success(task, 'Task updated', 200))
     } catch (error) {
       next(error)
     }
@@ -92,7 +75,7 @@ export class TaskController {
   async deleteTask(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = res.locals.user.userId
-      await this.taskService.remove(userId, req.params.id)
+      await this.taskService.remove(userId, req.params.id! as string)
 
       res
         .status(200)
@@ -105,17 +88,14 @@ export class TaskController {
   async taskCompleted(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = res.locals.user.userId
-      const task = await this.taskService.complete(userId, req.params.id)
+      const task = await this.taskService.complete(
+        userId,
+        req.params.id! as string
+      )
 
       res
         .status(200)
-        .json(
-          ResponseFormatter.success(
-            { data: task },
-            'Task marked as completed',
-            200
-          )
-        )
+        .json(ResponseFormatter.success(task, 'Task marked as completed', 200))
     } catch (error) {
       next(error)
     }

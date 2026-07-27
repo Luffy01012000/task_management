@@ -1,8 +1,8 @@
-import { ITask } from '@infra/db/models/tasks.model.js'
+import type { ITask } from '@infra/db/models/tasks.model.js'
 import { TaskQueryInput } from '../validation/taskSchema.js'
 
 export interface PaginatedResult<T> {
-  items: T[]
+  items: ITask[]
   total: number
   page: number
   limit: number
@@ -13,7 +13,7 @@ export interface ITaskRepository {
   findPaginated(
     userId: string,
     query: TaskQueryInput
-  ): Promise<PaginatedResult<ITask>>
+  ): Promise<PaginatedResult<ITask[]>>
   findByIdForOwner(id: string, userId: string): Promise<ITask | null>
   create(owner: string, data: Partial<ITask>): Promise<ITask>
   updateById(

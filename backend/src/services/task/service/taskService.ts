@@ -25,7 +25,7 @@ export class TaskService {
   async list(
     userId: string,
     query: TaskQueryInput
-  ): Promise<PaginatedResult<ITask>> {
+  ): Promise<PaginatedResult<ITask[]>> {
     return await this.taskRepository.findPaginated(userId, query)
   }
 
@@ -53,13 +53,11 @@ export class TaskService {
     return task
   }
 
-  async remove(userId: string, id: string): Promise<ITask> {
+  async remove(userId: string, id: string): Promise<void> {
     await this.taskRepository.deleteById(id, userId)
-    if (!task) throw new NotFoundError('Task not found')
-    return
   }
 
   async complete(userId: string, id: string): Promise<ITask> {
-    return await this.taskRepository.deleteById(id, userId)
+    return await this.update(userId, id, { status: 'Completed' })
   }
 }

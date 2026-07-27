@@ -4,9 +4,10 @@ import {
   TaskQueryInput,
   UpdateTaskInput
 } from '../validation/taskSchema.js'
+import { PaginatedResult } from './taskRepository.js'
 
 export interface ITaskService {
-  list(userId: string, query: TaskQueryInput): Promise<ITask[]>
+  list(userId: string, query: TaskQueryInput): Promise<PaginatedResult<ITask[]>>
 
   getOne(userId: string, taskId: string): Promise<ITask>
 

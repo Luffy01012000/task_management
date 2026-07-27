@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { AnyZodObject } from 'zod'
+import * as z from 'zod'
 
 type ValidationTarget = 'body' | 'query' | 'params'
 
@@ -8,7 +8,7 @@ type ValidationTarget = 'body' | 'query' | 'params'
  * On success, replaces the segment with the parsed (and coerced/defaulted) data.
  */
 export const validate =
-  (schema: AnyZodObject, target: ValidationTarget = 'body') =>
+  <T>(schema: z.ZodType<T>, target: ValidationTarget = 'body') =>
   (req: Request, res: Response, next: NextFunction) => {
     const parsed = schema.parse(req[target])
     ;(req as unknown as Record<ValidationTarget, unknown>)[target] = parsed
