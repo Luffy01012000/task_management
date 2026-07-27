@@ -11,7 +11,7 @@ architecture on the backend and a modern React 19 frontend.
 - JWT authentication, `bcryptjs` password hashing
 - `zod` for request validation (with strong password rules)
 - Feature-based layered architecture: `routes → controller → service → repository → model`
-- Seeders that run automatically on server start (`RUN_SEEDERS_ON_START=true`)
+<!--- Seeders that run automatically on server start (`RUN_SEEDERS_ON_START=true`)--> Pending
 - ESLint, Prettier
 
 **Frontend**
@@ -102,8 +102,8 @@ Seeders run automatically on backend start when `RUN_SEEDERS_ON_START=true`
 npm run seed --workspace backend
 ```
 This creates a demo user:
-- **Email:** `demo@example.com`
-- **Password:** `Password@123`
+<!--- **Email:** `demo@example.com`
+- **Password:** `Password@123`-->
 
 ## Environment Variables
 

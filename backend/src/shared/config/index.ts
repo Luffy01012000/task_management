@@ -23,9 +23,7 @@ const config = {
 
   port: Number(process.env.PORT ?? 5000),
 
-  postgres: {
-    database_url: required('DATABASE_URL')
-  },
+  mongo_uri: required('MONGO_URI'),
 
   //   rabbitmq: {
   //     url: required('RABBITMQ_URL'),

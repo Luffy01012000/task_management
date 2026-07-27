@@ -4,19 +4,28 @@ DotenvFlow.config()
 import { createServer } from './app.js'
 import logger from '@shared/lib/logger.js'
 import config from '@shared/config/index.js'
+import { connectToDatabase } from '@infra/db/mongo.js'
 
 const port = process.env.PORT || 3001
 const server = createServer()
 
-// TODO: start db connection then server
-server.listen(port, () => {
-  logger.info(`api running on ${port}`, {
-    meta: {
-      env: config.node_env,
-      Port: port
-    }
+connectToDatabase()
+  .then(() => {
+    server.listen(port, () => {
+      logger.info(`Api running on ${port}`, {
+        meta: {
+          env: config.node_env,
+          Port: port
+        }
+      })
+    })
   })
-})
+  .catch((err) => {
+    logger.error('Error in db connection', {
+      meta: err
+    })
+  })
+
 process.on('unhandledRejection', (reason) => {
   logger.error('Unhandled Rejection:', reason)
 })

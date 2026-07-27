@@ -7,6 +7,8 @@ import compression from 'compression'
 import hpp from 'hpp'
 import helmet from 'helmet'
 
+import authRouter from './services/auth/routes/authRouter.js'
+import taskRouter from './services/task/routes/taskRouter.js'
 import { errorHandler } from './shared/middlewares/errorHandler.js'
 import config from '@shared/config/index.js'
 
@@ -52,8 +54,8 @@ export const createServer = (): Express => {
     return res.json({ message: `hello ${req.params.name}` })
   })
 
-  // TODO: add auth
-  // app.use('/api/auth', authRouter)
+  app.use('/api/auth', authRouter)
+  app.use('/api/tasks', taskRouter)
 
   app.use(errorHandler)
 

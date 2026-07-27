@@ -1,32 +1,19 @@
-import type { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
+import { AnyZodObject } from 'zod'
 
-import { z } from 'zod'
+type ValidationTarget = 'body' | 'query' | 'params'
 
-import AppError from '@shared/errors/AppError.js'
-
-type ValidationTarget = 'body' | 'params' | 'query'
-
-export function validate<T>(
-  schema: z.ZodType<T>,
-  target: ValidationTarget = 'body'
-) {
-  return (req: Request, _res: Response, next: NextFunction) => {
-    const result = schema.safeParse(req[target])
-
-    if (!result.success) {
-      const errors = result.error.issues.map((issue) => ({
-        path: issue.path.join('.'),
-        message: issue.message
-      }))
-
-      return next(new AppError('Validation failed', 400, '', true, errors))
-    }
-
-    ;(req as any)[target] = result.data
-
+/**
+ * Validates a request segment (body/query/params) against a Zod schema.
+ * On success, replaces the segment with the parsed (and coerced/defaulted) data.
+ */
+export const validate =
+  (schema: AnyZodObject, target: ValidationTarget = 'body') =>
+  (req: Request, res: Response, next: NextFunction) => {
+    const parsed = schema.parse(req[target])
+    ;(req as unknown as Record<ValidationTarget, unknown>)[target] = parsed
     next()
   }
-}
 
 export const validateBody = <T>(schema: z.ZodType<T>) =>
   validate(schema, 'body')
@@ -34,21 +21,5 @@ export const validateBody = <T>(schema: z.ZodType<T>) =>
 export const validateParams = <T>(schema: z.ZodType<T>) =>
   validate(schema, 'params')
 
-export const validateQuery = <T>(schema: z.ZodType<T>) => {
-  return (req: Request, _res: Response, next: NextFunction) => {
-    const result = schema.safeParse(req.query)
-
-    if (!result.success) {
-      const errors = result.error.issues.map((issue) => ({
-        path: issue.path.join('.'),
-        message: issue.message
-      }))
-
-      return next(new AppError('Validation failed', 400, '', true, errors))
-    }
-
-    ;(req as any).validatedQuery = result.data
-
-    next()
-  }
-}
+export const validateQuery = <T>(schema: z.ZodType<T>) =>
+  validate(schema, 'params')
