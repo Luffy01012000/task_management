@@ -32,7 +32,7 @@ export default function Pagination({
         <button
           className="btn btn-secondary"
           disabled={page <= 1}
-          onClick={() => onPageChange(page - 1)}
+          onClick={() => onPageChange(Number(page) - 1)}
           aria-label="Previous page"
         >
           ← Prev
@@ -40,7 +40,7 @@ export default function Pagination({
         <button
           className="btn btn-secondary"
           disabled={page >= totalPages}
-          onClick={() => onPageChange(page + 1)}
+          onClick={() => onPageChange(Number(page) + 1)}
           aria-label="Next page"
         >
           Next →
