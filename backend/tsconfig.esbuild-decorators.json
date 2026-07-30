@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "rootDir": "./src",
+    "paths": {
+      "@shared/*": ["./src/shared/*"],
+      "@infra/*": ["./src/infrastructure/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

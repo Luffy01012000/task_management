@@ -17,8 +17,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./backend/Dockerfile
     container_name: task-manager-backend
     restart: unless-stopped
     depends_on:
@@ -41,8 +41,8 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
       args:
         VITE_API_URL: http://localhost:5000/api
     container_name: task-manager-frontend

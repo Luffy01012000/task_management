@@ -24,8 +24,9 @@
   "scripts": {
     "dev:backend": "pnpm --filter backend dev",
     "dev:frontend": "pnpm --filter frontend dev",
-    "build:backend": "pnpm --filter backend build",
+    "build:backend": "pnpm --filter backend build:prod",
     "build:frontend": "pnpm --filter frontend build",
+    "format:check": "prettier --check .",
     "lint:backend": "pnpm --filter backend lint",
     "lint:frontend": "pnpm --filter frontend lint",
     "prepare": "husky"

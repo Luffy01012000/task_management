@@ -1,40 +1,49 @@
 # ---- Base ----
-FROM oven/bun:1.3.14-debian AS base
+FROM node:24-alpine AS base
 
 WORKDIR /app
 
-COPY package.json bun.lock ./
-COPY .env.example ./.env
+RUN corepack enable
+
+RUN corepack install --global pnpm@11.11.0
+
+
 
 
 # ---- Dependencies ----
 FROM base AS deps
 
-RUN bun install --frozen-lockfile
+COPY  package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY ./backend/package.json ./backend/
+
+RUN pnpm install --filter backend --frozen-lockfile
 
 
 # ---- Build ----
 FROM deps AS build
 
-COPY . .
-
-RUN bun run build
+COPY ./backend ./backend
+RUN pnpm approve-builds esbuild
+RUN pnpm build:backend
 
 
 # ---- Production ----
 FROM node:24-alpine AS production
 
+RUN corepack enable
+
+RUN corepack install --global pnpm@11.11.0
+
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY package.json  ./
+COPY  package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY ./backend/package.json ./backend/
 
-# Install production dependencies with Bun
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/.env ./.env
-COPY --from=build /app/dist ./dist
+RUN pnpm install --prod --filter backend --ignore-script --frozen-lockfile
+COPY --from=build /app/backend/dist ./backend/dist
 
 EXPOSE 5000
 
-CMD ["node", "dist/server.js"]
+CMD ["node", "backend/dist/server.js"]
