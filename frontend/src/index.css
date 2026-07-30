@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root,
 [data-theme='light'] {
@@ -55,7 +55,9 @@ body {
   color: var(--text);
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 h1,
@@ -95,7 +97,10 @@ button {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.06s ease, background-color 0.15s ease, border-color 0.15s ease;
+  transition:
+    transform 0.06s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .btn:active {
@@ -183,7 +188,12 @@ button {
 }
 
 .skeleton {
-  background: linear-gradient(90deg, var(--border) 25%, var(--surface-raised) 37%, var(--border) 63%);
+  background: linear-gradient(
+    90deg,
+    var(--border) 25%,
+    var(--surface-raised) 37%,
+    var(--border) 63%
+  );
   background-size: 400% 100%;
   animation: skeleton-loading 1.4s ease infinite;
   border-radius: 6px;

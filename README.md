@@ -6,15 +6,17 @@ architecture on the backend and a modern React 19 frontend.
 ## Tech Stack
 
 **Backend**
+
 - Node.js 22, Express.js, TypeScript (via `tsx`)
 - MongoDB + Mongoose
 - JWT authentication, `bcryptjs` password hashing
 - `zod` for request validation (with strong password rules)
 - Feature-based layered architecture: `routes → controller → service → repository → model`
-- Seeders that run automatically on server start (`RUN_SEEDERS_ON_START=true`) 
+- Seeders that run automatically on server start (`RUN_SEEDERS_ON_START=true`)
 - ESLint, Prettier
 
 **Frontend**
+
 - React 19 + TypeScript + Vite 8
 - Tailwind CSS v4 + shadcn/ui-style components (Radix primitives)
 - TanStack Query v5 for all server-state/data-fetching
@@ -24,6 +26,7 @@ architecture on the backend and a modern React 19 frontend.
 - React Router v7
 
 **Tooling**
+
 - Docker + Docker Compose (Mongo + backend + frontend/nginx)
 - GitHub Actions CI (lint + build both apps on every push to `main`)
 - Husky + lint-staged + commitlint (Conventional Commits) at the repo root
@@ -60,10 +63,12 @@ task-manager/
 ## Installation & Local Setup
 
 ### Prerequisites
+
 - Node.js 22+
 - MongoDB running locally, **or** use Docker Compose (recommended)
 
 ### 1. Clone & install
+
 ```bash
 git clone <repo-url>
 cd task-manager
@@ -71,21 +76,26 @@ npm install --workspaces
 ```
 
 ### 2. Environment variables
+
 Copy the example files and adjust as needed:
+
 ```bash
 cp backend/.env.example backend/.env
 cp frontend/.env.example frontend/.env
 ```
 
 ### 3. Run with Docker (recommended)
+
 ```bash
 docker compose up --build
 ```
+
 This starts MongoDB, the backend (with seeders on first boot), and the
 frontend served via nginx on `http://localhost:5173`. The API is available at
 `http://localhost:5000/api`.
 
 ### 4. Run without Docker
+
 ```bash
 # Terminal 1
 npm run dev:backend
@@ -93,14 +103,18 @@ npm run dev:backend
 # Terminal 2
 npm run dev:frontend
 ```
+
 Frontend: http://localhost:5173 · Backend: http://localhost:5000
 
 ### Seed data
+
 Seeders run automatically on backend start when `RUN_SEEDERS_ON_START=true`
 (default in the example env / Docker Compose). To seed manually:
+
 ```bash
 npm run seed --workspace backend
 ```
+
 This creates a demo user:
 <!--- **Email:** `demo@example.com`
 - **Password:** `Password@123`-->
@@ -108,6 +122,7 @@ This creates a demo user:
 ## Environment Variables
 
 **backend/.env**
+
 ```
 PORT=5000
 NODE_ENV=development
@@ -119,6 +134,7 @@ RUN_SEEDERS_ON_START=true
 ```
 
 **frontend/.env**
+
 ```
 VITE_API_URL=http://localhost:5000/api
 ```
@@ -127,15 +143,15 @@ VITE_API_URL=http://localhost:5000/api
 
 Import `postman_collection.json` into Postman. Summary of endpoints:
 
-| Method | Endpoint                  | Auth | Description                    |
-|--------|----------------------------|------|---------------------------------|
-| POST   | `/api/auth/register`       | No   | Register a new user             |
-| POST   | `/api/auth/login`          | No   | Login, returns JWT              |
-| GET    | `/api/tasks`                | Yes  | List tasks (search/filter/sort/paginate) |
-| POST   | `/api/tasks`                | Yes  | Create a task                   |
-| PUT    | `/api/tasks/:id`             | Yes  | Update a task                   |
-| PATCH  | `/api/tasks/:id/complete`    | Yes  | Mark a task completed            |
-| DELETE | `/api/tasks/:id`             | Yes  | Delete a task                   |
+| Method | Endpoint                  | Auth | Description                              |
+| ------ | ------------------------- | ---- | ---------------------------------------- |
+| POST   | `/api/auth/register`      | No   | Register a new user                      |
+| POST   | `/api/auth/login`         | No   | Login, returns JWT                       |
+| GET    | `/api/tasks`              | Yes  | List tasks (search/filter/sort/paginate) |
+| POST   | `/api/tasks`              | Yes  | Create a task                            |
+| PUT    | `/api/tasks/:id`          | Yes  | Update a task                            |
+| PATCH  | `/api/tasks/:id/complete` | Yes  | Mark a task completed                    |
+| DELETE | `/api/tasks/:id`          | Yes  | Delete a task                            |
 
 `GET /api/tasks` query params: `search`, `status`, `priority`, `sortBy`
 (`dueDate` | `createdAt` | `priority`), `sortOrder` (`asc` | `desc`), `page`,

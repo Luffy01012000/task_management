@@ -1,13 +1,13 @@
-import type { ChangeEvent } from "react";
+import type { ChangeEvent } from 'react'
 
 interface SearchBarProps {
-  value: string;
-  onChange: (value: string) => void;
+  value: string
+  onChange: (value: string) => void
 }
 
 export default function SearchBar({ value, onChange }: SearchBarProps) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    onChange(e.target.value);
+    onChange(e.target.value)
 
   return (
     <input
@@ -19,5 +19,5 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
       aria-label="Search tasks by title"
       style={{ maxWidth: 320 }}
     />
-  );
+  )
 }

@@ -27,6 +27,7 @@
     "build:backend": "pnpm --filter backend build:prod",
     "build:frontend": "pnpm --filter frontend build",
     "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
     "lint:backend": "pnpm --filter backend lint",
     "lint:frontend": "pnpm --filter frontend lint",
     "prepare": "husky"
